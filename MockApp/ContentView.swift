@@ -37,6 +37,9 @@ struct ContentView: View {
         } detail: {
             Text("Select an item")
         }
+        
+        
+        
     }
 
     private func addItem() {
