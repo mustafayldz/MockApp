@@ -10,9 +10,12 @@ import SwiftData
 
 @Model
 final class Item {
+    var id = UUID()
     var timestamp: Date
+    var imageData: Data?
     
-    init(timestamp: Date) {
+    init(timestamp: Date, imageData: Data? = nil) {
         self.timestamp = timestamp
+        self.imageData = imageData
     }
 }

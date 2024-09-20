@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		759F25752C9E0FB8002AEDCA /* DetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F25742C9E0FB8002AEDCA /* DetailScreen.swift */; };
 		75E21AB02C9CA1FE0036B5C8 /* MockAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E21AAF2C9CA1FE0036B5C8 /* MockAppApp.swift */; };
 		75E21AB22C9CA1FE0036B5C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E21AB12C9CA1FE0036B5C8 /* ContentView.swift */; };
 		75E21AB42C9CA1FE0036B5C8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E21AB32C9CA1FE0036B5C8 /* Item.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		759F25742C9E0FB8002AEDCA /* DetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreen.swift; sourceTree = "<group>"; };
 		75E21AAC2C9CA1FE0036B5C8 /* MockApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MockApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E21AAF2C9CA1FE0036B5C8 /* MockAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppApp.swift; sourceTree = "<group>"; };
 		75E21AB12C9CA1FE0036B5C8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				75E21AAF2C9CA1FE0036B5C8 /* MockAppApp.swift */,
 				75E21AB12C9CA1FE0036B5C8 /* ContentView.swift */,
+				759F25742C9E0FB8002AEDCA /* DetailScreen.swift */,
 				75E21AB32C9CA1FE0036B5C8 /* Item.swift */,
 				75E21AB52C9CA2000036B5C8 /* Assets.xcassets */,
 				75E21AB72C9CA2000036B5C8 /* Preview Content */,
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				759F25752C9E0FB8002AEDCA /* DetailScreen.swift in Sources */,
 				75E21AB22C9CA1FE0036B5C8 /* ContentView.swift in Sources */,
 				75E21AB42C9CA1FE0036B5C8 /* Item.swift in Sources */,
 				75E21AB02C9CA1FE0036B5C8 /* MockAppApp.swift in Sources */,

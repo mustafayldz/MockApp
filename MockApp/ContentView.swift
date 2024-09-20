@@ -1,25 +1,37 @@
-//
-//  ContentView.swift
-//  MockApp
-//
-//  Created by Mustafa yıldiz on 2024-09-19.
-//
-
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @State private var selectedImage: UIImage?
 
     var body: some View {
         NavigationSplitView {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        VStack {
+                            if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFit()  // Make sure the image maintains its aspect ratio
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)  // Fill the screen
+                                    .ignoresSafeArea()  // Ensure the image takes the entire screen space
+                            }
+                            Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        }
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        HStack {
+                            if let imageData = item.imageData, let uiImage = UIImage(data: imageData) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                            }
+                            Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -29,22 +41,34 @@ struct ContentView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: { selectImage() }) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
+                
+                ToolbarItem {
+                                   NavigationLink(destination: DetailScreen()) {
+                                       Label("New Screen", systemImage: "star")
+                                   }
+                               }
             }
         } detail: {
             Text("Select an item")
         }
-        
-        
-        
+        .photosPicker(isPresented: $isImagePickerPresented, selection: $selectedImageItem)
+        .onChange(of: selectedImageItem) { oldValue, newValue in
+            if let newItem = newValue {
+                loadImage(from: newItem)
+            }
+        }
     }
 
-    private func addItem() {
+    @State private var isImagePickerPresented = false
+    @State private var selectedImageItem: PhotosPickerItem?
+
+    private func addItem(imageData: Data?) {
         withAnimation {
-            let newItem = Item(timestamp: Date())
+            let newItem = Item(timestamp: Date(), imageData: imageData)
             modelContext.insert(newItem)
         }
     }
@@ -53,6 +77,23 @@ struct ContentView: View {
         withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])
+            }
+        }
+    }
+
+    private func selectImage() {
+        isImagePickerPresented = true
+    }
+
+    private func loadImage(from item: PhotosPickerItem) {
+        item.loadTransferable(type: Data.self) { result in
+            switch result {
+            case .success(let data):
+                if let data = data {
+                    addItem(imageData: data)
+                }
+            case .failure(let error):
+                print("Error loading image: \(error)")
             }
         }
     }
